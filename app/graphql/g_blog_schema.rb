@@ -1,5 +1,5 @@
 class GBlogSchema < GraphQL::Schema
-  mutation(Types::MutationType)
+  #mutation(Types::MutationType)
   query(Types::QueryType)
 
   # Opt in to the new runtime (default in future graphql-ruby versions)
@@ -9,3 +9,4 @@ class GBlogSchema < GraphQL::Schema
   # Add built-in connections for pagination
   use GraphQL::Pagination::Connections
 end
+  
