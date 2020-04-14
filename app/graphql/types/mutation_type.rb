@@ -1,7 +1,7 @@
 module Types
   class MutationType < Types::BaseObject
-    # TODO: remove me
-    field :user_signin, mutation: Mutations::UserSignin
+
+    field :user_sign_in, mutation: Mutations::UserSignIn
 
     # need context
     #field :post_blog, mutation: Mutations::PostBlogMutation
