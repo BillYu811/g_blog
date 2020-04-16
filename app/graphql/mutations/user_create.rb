@@ -8,12 +8,9 @@ module Mutations
 
     def resolve(**inputs)
       inputs[:password_confirmation] = inputs[:password]
-      user = User.new(inputs)
-      if user.save
-        {id: user.id, errors: []}
-      else
-        {id: nil, errors: ['create user failed.']}
-      end
+      @user = User.new(inputs)
+      return {id: nil, errors: ['create user failed.']} unless @user.save
+      {id: user.id, errors: []}
     end
   end
 end

@@ -9,9 +9,10 @@ class GraphqlController < ApplicationController
     query = params[:query]
     operation_name = params[:operationName]
     context = {
-      current_user: session[:current_user],
-      # Query context goes here, for example:
-      # current_user: current_user,
+        session: session,
+        current_user: current_user,
+        # Query context goes here, for example:
+        # current_user: current_user,
     }
     result = GBlogSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
     render json: result
@@ -44,6 +45,26 @@ class GraphqlController < ApplicationController
     logger.error e.message
     logger.error e.backtrace.join("\n")
 
-    render json: { errors: [{ message: e.message, backtrace: e.backtrace }], data: {} }, status: 500
+    render json: {errors: [{message: e.message, backtrace: e.backtrace}], data: {}}, status: 500
+  end
+
+  # auth for jwt token code here
+  def current_user
+    return unless session[:JWTtoken]
+    # handle something
+    begin
+      @payload = Token.decode session[:JWTtoken]
+    rescue JWT::InvalidIatError
+      # Handle invalid token here
+      session[:JWTtoken] = nil
+      nil
+
+    rescue JWT::ExpiredSignature
+      # Handle expired token, e.g.
+      session[:JWTtoken] = nil
+      nil
+    end
+    #put user model to context[:current_user] according to payload
+    User.find_by id: @payload[0]['id']
   end
 end

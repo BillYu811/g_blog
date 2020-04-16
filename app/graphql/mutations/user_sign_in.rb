@@ -6,10 +6,9 @@ module Mutations
     field :id, ID, null: true
     field :token, String, null: true
     field :errors, [String], null: true
-    field :message, String, null: true
 
     def resolve(**inputs)
-      wrong_msg = {errors: ['wrong username or password input.']}
+      wrong_msg = {errors: ['wrong username or password.']}
 
       return wrong_msg unless inputs[:name] && inputs[:password]
 
@@ -20,6 +19,7 @@ module Mutations
       return wrong_msg unless user.authenticate(inputs[:password])
 
       #create a JWT sign
+      context[:session][:JWTtoken] = user.token
       {id: user.id, token: user.token}
     end
 
