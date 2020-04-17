@@ -65,6 +65,6 @@ class GraphqlController < ApplicationController
       nil
     end
     #put user model to context[:current_user] according to payload
-    User.find_by id: @payload[0]['id']
+    User.find @payload[0]['id']
   end
 end

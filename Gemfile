@@ -5,6 +5,7 @@ ruby '2.6.3'
 
 gem 'jwt'
 gem 'graphql'
+gem 'rack-cors', '~> 1.1', '>= 1.1.1'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

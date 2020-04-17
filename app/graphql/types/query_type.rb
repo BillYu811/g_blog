@@ -5,13 +5,16 @@ module Types
     field :blog, BlogType, null: true do
       description "find a blog"
       argument :id, ID, required: true
-    end 
+    end
 
     field :user, UserType, null: false do
       description "find a user and blogs blong to ta"
       argument :id, ID, required: true
-      
+
     end
+
+    field :all_blogs, [BlogType], null: false
+
 
     def blog(id:)
       Blog.find(id)
@@ -21,5 +24,9 @@ module Types
       User.find(id)
     end
 
-  end 
+    def all_blogs()
+      Blog.all
+    end
+
+  end
 end

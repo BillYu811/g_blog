@@ -11,9 +11,12 @@ module GBlog
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
 
-    #config.autoload_paths << Rails.root.join('app', 'graph')
-    #config.autoload_paths << Rails.root.join('app', 'graph', 'types')
-    
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins '*'
+        resource '*', headers: :any, methods: [:get, :post, :options]
+      end
+    end
     #config.middleware.insert_before 0, "Rack::Cors" do
     #  allow do
     #    origins '*'
