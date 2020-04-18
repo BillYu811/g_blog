@@ -4,6 +4,6 @@ module Types
     field :userSignIn, mutation: Mutations::UserSignIn
     # need context
     field :blogPost, mutation: Mutations::BlogPost
-    #field :delete_blog, mutation: Mutations::DeleteBlogMutation
+    field :blogDelete, mutation: Mutations::BlogDelete
   end
 end

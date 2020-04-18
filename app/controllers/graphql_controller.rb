@@ -45,23 +45,23 @@ class GraphqlController < ApplicationController
     logger.error e.message
     logger.error e.backtrace.join("\n")
 
-    render json: {errors: [{message: e.message, backtrace: e.backtrace}], data: {}}, status: 500
+      render json: {errors: [{message: e.message, backtrace: e.backtrace}], data: {}}, status: 500
   end
 
   # auth for jwt token code here
   def current_user
-    return unless session[:JWTtoken]
+    @token = request.headers[:authorization]
+    return unless @token
+
     # handle something
     begin
-      @payload = Token.decode session[:JWTtoken]
+      @payload = Token.decode @token
     rescue JWT::InvalidIatError
       # Handle invalid token here
-      session[:JWTtoken] = nil
       nil
 
     rescue JWT::ExpiredSignature
       # Handle expired token, e.g.
-      session[:JWTtoken] = nil
       nil
     end
     #put user model to context[:current_user] according to payload

@@ -11,7 +11,7 @@ module Mutations
       return {errors: ['signin required']} unless context[:current_user]
       @blog = Blog.find inputs[:id]
       return {errors: ['this blog is not belongs to current user.']} unless @blog.user_id == context[:current_user].id
-      {blog: @blog} if @blog.destory!
+      {blog: @blog} if @blog.destroy!
     end
 
   end
