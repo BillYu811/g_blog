@@ -62,6 +62,7 @@ class GraphqlController < ApplicationController
 
     rescue JWT::ExpiredSignature
       # Handle expired token, e.g.
+      render json: {errors:['token expired.']},status: 203
       nil
     end
     #put user model to context[:current_user] according to payload
